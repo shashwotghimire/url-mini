@@ -1,17 +1,21 @@
 import { Router } from "express";
 import prisma from "../prisma";
 import { nanoid } from "nanoid";
-
+import { isValidHttpUrl } from "../validation";
 const router = Router();
 
 // Create short URL
 router.post("/", async (req, res) => {
   try {
     const { url } = req.body;
-    if (!url) return res.status(400).json({ error: "URL is required" });
+    if (!url || !isValidHttpUrl(url))
+      return res.status(400).json({ error: "URL is required/invalid" });
 
     const shortId = nanoid(8);
-
+    const shortIdExists = await prisma.url.findUnique({ where: { shortId } });
+    if (shortIdExists) {
+      return res.status(400).json({ error: "not a unique shrot id" });
+    }
     const shortUrl = await prisma.url.create({
       data: { redirectUrl: url, shortId },
     });
@@ -54,7 +58,7 @@ router.get("/:shortId", async (req, res) => {
     prisma.url.update({
       where: { shortId },
       data: {
-        visitCount: entryUrl.visitCount + 1,
+        visitCount: { increment: 1 },
         visitHistory: { push: new Date() },
       },
     });

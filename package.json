@@ -5,10 +5,12 @@
   "private": true,
   "devDependencies": {
     "@types/bun": "latest",
+    "@types/jest": "^30.0.0",
     "prisma": "^6.16.2"
   },
   "scripts": {
-    "dev": "bun --hot run server.ts"
+    "dev": "bun --hot run server.ts",
+    "test": "bun test"
   },
   "peerDependencies": {
     "typescript": "^5"

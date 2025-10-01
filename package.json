@@ -6,7 +6,9 @@
   "devDependencies": {
     "@types/bun": "latest",
     "@types/jest": "^30.0.0",
-    "prisma": "^6.16.2"
+    "@types/supertest": "^6.0.3",
+    "prisma": "^6.16.2",
+    "supertest": "^7.1.4"
   },
   "scripts": {
     "dev": "bun --hot run server.ts",

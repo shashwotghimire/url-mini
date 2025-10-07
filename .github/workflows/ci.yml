@@ -25,5 +25,8 @@ jobs:
       - name: Prisma generate
         run: bunx prisma generate
 
+      - name: Reset database for tests
+        run: bunx prisma migrate reset --force
+
       - name: Run tests
         run: bun test

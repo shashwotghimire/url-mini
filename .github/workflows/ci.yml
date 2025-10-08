@@ -48,3 +48,10 @@ jobs:
 
       - name: push
         run: docker push ${{secrets.DOCKERHUB_USERNAME}}/url-mini
+
+      - name: Deploy to production
+        uses: johnbeynon/render-deploy-action@v0.0.8
+        with:
+          service-id: ${{ secrets.MY_RENDER_SERVICE_ID }}
+          api-key: ${{ secrets.MY_RENDER_API_KEY }}
+          wait-for-success: true

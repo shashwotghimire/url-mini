@@ -11,4 +11,4 @@ COPY . .
 
 RUN bun install
 RUN bunx prisma generate
-CMD ["bun", "run", "dev"]
+CMD ["bun", "run","server.ts"]
